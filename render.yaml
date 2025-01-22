@@ -4,11 +4,14 @@ services:
     env: python
     buildCommand: |
       python -m pip install --upgrade pip
-      pip install gunicorn
       pip install -r requirements.txt
     startCommand: |
-      gunicorn --bind 0.0.0.0:$PORT app:app
+      python -m gunicorn app:app --bind 0.0.0.0:$PORT --timeout 120
     envVars:
+      - key: PYTHON_VERSION
+        value: "3.9"
+      - key: PORT
+        value: "10000"
       - key: OPENAI_API_KEY
         value: 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
 
